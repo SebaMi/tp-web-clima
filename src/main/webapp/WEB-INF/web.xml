@@ -8,7 +8,7 @@
 	<display-name>Aplicacion de integracion</display-name>
 	
 	<welcome-file-list>
-		<welcome-file>/login</welcome-file>
+		<welcome-file>login</welcome-file>
 	</welcome-file-list>
 	
 	

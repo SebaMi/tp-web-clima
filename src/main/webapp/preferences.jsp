@@ -1,3 +1,4 @@
+<%@page import="clima.web.model.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -9,7 +10,7 @@
 	crossorigin="anonymous">
 
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Preferencias</title>
 </head>
 <body>
 	<div class="container">
@@ -25,9 +26,10 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<span class="navbar-text">
-    				Nombre usuario
-  				</span>
+				<span class="navbar-text"> 
+					<% 	Usuario usuario = (Usuario) session.getAttribute("usuario");%>
+					<%= usuario.getName() %>	
+				</span>
 				<form class="form-inline my-2 my-lg-0">
 					<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
 				</form>
@@ -38,6 +40,36 @@
 
 		<div class="row">
 			<!-- Contenido de la pagina aqui! -->
+			<form>
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Ciudad seleccionada</label> 
+					<input 	type="text" class="form-control" id="exampleFormControlInput1" readonly>
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlSelect1">Seleccione Ciudad</label> 
+					<select class="form-control" id="exampleFormControlSelect1">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+					</select>
+				</div>
+				
+				<div class="form-group">
+					<label for="exampleFormControlInput1">Temperatura seleccionada</label> 
+					<input 	type="text" class="form-control" id="exampleFormControlInput1" readonly>
+				</div>
+				<div class="form-group">
+					<label for="exampleFormControlSelect1">Seleccione escala de grados</label> 
+					<select class="form-control" id="exampleFormControlSelect1">
+						<option>Celsius</option>
+						<option>Farenheit</option>
+					</select>
+				</div>
+				
+			</form>
+
 		</div>
 
 	</div>

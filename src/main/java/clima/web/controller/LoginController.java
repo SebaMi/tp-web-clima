@@ -11,15 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import clima.web.model.Ciudad;
 import clima.web.model.Pais;
+import clima.web.model.Usuario;
+import clima.web.service.CiudadService;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
-		List<Pais> paises = getPaises();
+		CiudadService service = new CiudadService();
+		List<Pais> paises = service.getPaises();
 				
 		req.getSession().setAttribute("paises", paises);
 		
@@ -37,35 +40,23 @@ public class LoginController extends HttpServlet {
 		String user =  req.getParameter("exampleInputEmail1");
 		String password = req.getParameter("exampleInputPassword1");
 		Integer pais = Integer.valueOf(req.getParameter("pais"));
-				
-		super.doPost(req, resp);
+		
+		CiudadService service = new CiudadService();
+		List<Ciudad> ciudades = service.getCiudades(pais);
+		
+		Usuario usuario = new Usuario();
+		usuario.setName(user);
+		
+		req.getSession().setAttribute("usuario", usuario);
+		
+		resp.sendRedirect("preferences.jsp");
 	}
 
+	
 
 
 
-
-	private List<Pais> getPaises(){
-		List<Pais> listaPaises = new ArrayList<>();
-		
-		Pais arg = new Pais();
-		arg.setId(123);
-		arg.setNombre("Argentina");
-		
-		Pais ven = new Pais();
-		ven.setId(312);
-		ven.setNombre("Venezuela");
-		
-		Pais ale = new Pais();
-		ale.setId(312);
-		ale.setNombre("Alemania");
-
-		listaPaises.add(ale);
-		listaPaises.add(arg);
-		listaPaises.add(ven);
-		
-		return listaPaises;
-	}
+	
 	
 	
 	
