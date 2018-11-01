@@ -30,12 +30,11 @@
 		</div>
 		<div class="form-group">
 		    <label for="exampleFormControlSelect1">Pais</label>
-			<% List<Pais> paises = (List<Pais>) session.getAttribute("paises"); 
-			%>
+			<% List<Pais> paises = (List<Pais>) session.getAttribute("paises"); %>
 				
 		    <select class="form-control" id="pais" name="pais">
 		   	<% for(Pais pais : paises) { %>			
-		      <option value="<%= pais.getId() %>" id="<%= pais.getId() %>" ><%= pais.getNombre() %></option>
+		      <option value="<%= pais.getId() %>" ><%= pais.getNombre() %></option>
 		    <% } %>	
 		    </select>
 	  	</div>

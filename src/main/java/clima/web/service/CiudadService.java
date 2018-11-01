@@ -58,6 +58,21 @@ public class CiudadService {
 		
 		return listaPaises;
 	}
+
+	public Pais getPais(Integer pais) {
+		
+		List<Pais> paises = getPaises();
+		
+		return paises.stream().filter(
+				p -> p.getId().equals(pais)).collect(Collectors.toList()).get(0);
+		
+		
+//		for (Pais pais2 : paises) {
+//			if(pais2.getId().equals(pais)) return pais2;
+//		}
+//		
+//		return null;
+	}
 	
 	
 }

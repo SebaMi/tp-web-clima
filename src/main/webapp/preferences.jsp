@@ -1,3 +1,5 @@
+<%@page import="clima.web.model.Ciudad"%>
+<%@page import="java.util.List"%>
 <%@page import="clima.web.model.Usuario"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
@@ -42,18 +44,23 @@
 			<!-- Contenido de la pagina aqui! -->
 			<form>
 				<div class="form-group">
+					<label for="paisSeleccionado">Pais seleccionado</label> 
+					<input 	type="text" class="form-control" id="paisSeleccionado" value="<%= session.getAttribute("nombrePais") %>" readonly>
+				</div>
+				
+				<div class="form-group">
 					<label for="exampleFormControlInput1">Ciudad seleccionada</label> 
 					<input 	type="text" class="form-control" id="exampleFormControlInput1" readonly>
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlSelect1">Seleccione Ciudad</label> 
-					<select class="form-control" id="exampleFormControlSelect1">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
+					<% List<Ciudad> ciudades = (List<Ciudad>) session.getAttribute("ciudades");  %>
+					<select class="form-control" name="ciudad">
+						<% for(Ciudad c : ciudades) { %>
+							<option value="<%= c.getId() %>"> <%= c.getNombre() %> </option>
+						<% } %>
 					</select>
+				
 				</div>
 				
 				<div class="form-group">

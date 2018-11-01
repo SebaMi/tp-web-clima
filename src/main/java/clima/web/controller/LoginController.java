@@ -42,12 +42,16 @@ public class LoginController extends HttpServlet {
 		Integer pais = Integer.valueOf(req.getParameter("pais"));
 		
 		CiudadService service = new CiudadService();
+		Pais paisSeleccionado = service.getPais(pais);
+		
 		List<Ciudad> ciudades = service.getCiudades(pais);
 		
 		Usuario usuario = new Usuario();
 		usuario.setName(user);
 		
+		req.getSession().setAttribute("ciudades", ciudades);
 		req.getSession().setAttribute("usuario", usuario);
+		req.getSession().setAttribute("nombrePais", paisSeleccionado.getNombre());
 		
 		resp.sendRedirect("preferences.jsp");
 	}
