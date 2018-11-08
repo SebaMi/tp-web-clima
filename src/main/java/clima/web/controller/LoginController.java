@@ -43,7 +43,7 @@ public class LoginController extends HttpServlet {
 		
 		UsuarioService userService = new UsuarioService();
 		
-		String mensajeError = "<font color=red>Usuario o contrasenia invalidos.</font>";
+		String mensajeError = "<div class=\"alert alert-danger\" role=\"alert\">Usuario o contrasenia invalidos.</div>";
 		boolean login = false;
 		
 		try {
@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
 						
 		} catch (DBException e) {
 			
-			mensajeError = "<font color=red>Hubo un problema en la validacion, intente nuevamente.</font>";
+			mensajeError = "<div class=\\\"alert alert-danger\\\" role=\\\"alert\\\">Hubo un problema en la validacion, intente nuevamente.</div>";
 			
 		}
 		
