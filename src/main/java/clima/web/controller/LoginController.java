@@ -51,7 +51,7 @@ public class LoginController extends HttpServlet {
 						
 		} catch (DBException e) {
 			
-			mensajeError = "<div class=\\\"alert alert-danger\\\" role=\\\"alert\\\">Hubo un problema en la validacion, intente nuevamente.</div>";
+			mensajeError = "<div class=\"alert alert-danger\" role=\"alert\">Hubo un problema en la validacion, intente nuevamente.</div>";
 			
 		}
 		
@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
 			
 			resp.sendRedirect("preferences.jsp");
 		} else {
-			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			PrintWriter out= resp.getWriter();
 			out.println(mensajeError);
 			rd.include(req, resp);

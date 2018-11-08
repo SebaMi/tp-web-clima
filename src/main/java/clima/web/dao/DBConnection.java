@@ -60,7 +60,6 @@ public class DBConnection {
 					System.out.println("Cause:" + t);
 					t = t.getCause();
 				}
-				ex = ex.getNextException();
 				throw ex;
 			}
 		}
