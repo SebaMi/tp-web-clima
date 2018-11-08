@@ -1,20 +1,24 @@
 package clima.web.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import clima.web.exception.DBException;
 import clima.web.model.Ciudad;
 import clima.web.model.Pais;
 import clima.web.model.Usuario;
 import clima.web.service.CiudadService;
+import clima.web.service.UsuarioService;
 
 @WebServlet("/login")
 public class LoginController extends HttpServlet {
@@ -30,10 +34,6 @@ public class LoginController extends HttpServlet {
 		
 	}
 	
-	
-	
-	
-	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
@@ -41,19 +41,41 @@ public class LoginController extends HttpServlet {
 		String password = req.getParameter("exampleInputPassword1");
 		Integer pais = Integer.valueOf(req.getParameter("pais"));
 		
-		CiudadService service = new CiudadService();
-		Pais paisSeleccionado = service.getPais(pais);
+		UsuarioService userService = new UsuarioService();
 		
-		List<Ciudad> ciudades = service.getCiudades(pais);
+		String mensajeError = "<font color=red>Usuario o contrasenia invalidos.</font>";
+		boolean login = false;
 		
-		Usuario usuario = new Usuario();
-		usuario.setName(user);
+		try {
+			login = userService.validarUsuario(user, password);
+						
+		} catch (DBException e) {
+			
+			mensajeError = "<font color=red>Hubo un problema en la validacion, intente nuevamente.</font>";
+			
+		}
 		
-		req.getSession().setAttribute("ciudades", ciudades);
-		req.getSession().setAttribute("usuario", usuario);
-		req.getSession().setAttribute("nombrePais", paisSeleccionado.getNombre());
-		
-		resp.sendRedirect("preferences.jsp");
+		if(login) {
+			
+			CiudadService service = new CiudadService();
+			Pais paisSeleccionado = service.getPais(pais);
+			
+			List<Ciudad> ciudades = service.getCiudades(pais);
+			
+			Usuario usuario = new Usuario();
+			usuario.setName(user);
+			
+			req.getSession().setAttribute("ciudades", ciudades);
+			req.getSession().setAttribute("usuario", usuario);
+			req.getSession().setAttribute("nombrePais", paisSeleccionado.getNombre());
+			
+			resp.sendRedirect("preferences.jsp");
+		} else {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.html");
+			PrintWriter out= resp.getWriter();
+			out.println(mensajeError);
+			rd.include(req, resp);
+		}
 	}
 
 	
