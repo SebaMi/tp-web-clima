@@ -12,8 +12,6 @@ public class UsuarioService {
 		
 		DBConnection dbConexion = new DBConnection();
 		
-		dbConexion.testDBConnection();
-		
 		try {
 			Usuario user = dbConexion.getUsuarioByEmail(email);
 			if(user == null) {

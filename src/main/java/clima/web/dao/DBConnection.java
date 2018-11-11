@@ -10,7 +10,7 @@ import clima.web.model.Usuario;
 
 public class DBConnection {
 
-	public void testDBConnection() {
+	{
 		System.out.println("-------- MySQL JDBC Connection Testing ------------");
 
 		try {
@@ -24,18 +24,14 @@ public class DBConnection {
 		System.out.println("MySQL JDBC Driver Registered!");
 	}
 
-	/*
-	 * https://github.com/mlennard-utn/avanzando/blob/master/AvanzadoRepaso/src/jdbc
-	 * /ConexionDB.java
-	 */
 	public Usuario getUsuarioByEmail(String email) throws SQLException {
 
 		Usuario user = null;
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/java_web", "javaweb",
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "javaweb",
 				"javaweb");) {
 
-			String query = "SELECT * FROM usuario where email = ?";
+			String query = "SELECT * FROM usuarios where email = ?";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 
 			pstmt.setString(1, email);
