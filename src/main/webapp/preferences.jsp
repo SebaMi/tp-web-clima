@@ -15,7 +15,7 @@
 <title>Preferencias</title>
 </head>
 <body>
-	<div class="container">
+	<form action="preferences" method="post"> 
 		<div class="row">
 			<!-- Navbar aca -->
 			<nav class="navbar navbar-expand-lg navbar-light bg-light"> <a
@@ -33,7 +33,7 @@
 					<%= usuario.getName() %>	
 				</span>
 				<form class="form-inline my-2 my-lg-0">
-					<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
+					<button class="btn btn-outline-danger my-2 my-sm-0" type="cancel">Logout</button>
 				</form>
 			</div>
 
@@ -55,7 +55,7 @@
 				<div class="form-group">
 					<label for="exampleFormControlSelect1">Seleccione Ciudad</label> 
 					<% List<Ciudad> ciudades = (List<Ciudad>) session.getAttribute("ciudades");  %>
-					<select class="form-control" name="ciudad">
+					<select class="form-control" id="ciudad" name="ciudad">
 						<% for(Ciudad c : ciudades) { %>
 							<option value="<%= c.getId() %>"> <%= c.getNombre() %> </option>
 						<% } %>
@@ -64,12 +64,12 @@
 				</div>
 				
 				<div class="form-group">
-					<label for="exampleFormControlInput1">Temperatura seleccionada</label> 
-					<input 	type="text" class="form-control" id="exampleFormControlInput1" readonly>
+					<label for="exampleFormControlInput2">Temperatura seleccionada</label> 
+					<input 	type="text" class="form-control" id="exampleFormControlInput2" readonly>
 				</div>
 				<div class="form-group">
-					<label for="exampleFormControlSelect1">Seleccione escala de grados</label> 
-					<select class="form-control" id="exampleFormControlSelect1">
+					<label for="exampleFormControlSelect2">Seleccione escala de grados</label> 
+					<select class="form-control" id="temperatura" name="temperatura">
 						<option>Celsius</option>
 						<option>Farenheit</option>
 					</select>
@@ -78,9 +78,12 @@
 			</form>
 
 		</div>
+		
+		<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Guardar</button>
 
 	</div>
 
+	
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -93,5 +96,6 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
+		</form>
 </body>
 </html>

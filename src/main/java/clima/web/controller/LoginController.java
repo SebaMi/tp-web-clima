@@ -67,7 +67,7 @@ public class LoginController extends HttpServlet {
 			req.getSession().setAttribute("usuario", usuario);
 			req.getSession().setAttribute("nombrePais", paisSeleccionado.getNombre());
 			
-			resp.sendRedirect("preferences.jsp");
+			resp.sendRedirect("/integracion-web/preferences");
 		} else {
 			RequestDispatcher rd = getServletContext().getRequestDispatcher("/login.jsp");
 			PrintWriter out= resp.getWriter();

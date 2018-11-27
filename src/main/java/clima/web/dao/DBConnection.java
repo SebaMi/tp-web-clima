@@ -28,7 +28,7 @@ public class DBConnection {
 
 		Usuario user = null;
 
-		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "javaweb",
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "javaweb",
 				"javaweb");) {
 
 			String query = "SELECT * FROM usuarios where email = ?";
