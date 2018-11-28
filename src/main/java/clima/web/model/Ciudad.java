@@ -4,7 +4,7 @@ public class Ciudad {
 	
 	private Integer id;
 	private String nombre;
-	private Pais pais;
+	private String pais;
 	
 	public Integer getId() {
 		return id;
@@ -18,10 +18,10 @@ public class Ciudad {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public Pais getPais() {
+	public String getPais() {
 		return pais;
 	}
-	public void setPais(Pais pais) {
+	public void setPais(String pais) {
 		this.pais = pais;
 	}
 	

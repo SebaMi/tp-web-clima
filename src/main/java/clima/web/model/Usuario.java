@@ -5,7 +5,16 @@ public class Usuario {
 	private String name;
 	private String email;
 	private String password;
+	private Integer id;
 	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

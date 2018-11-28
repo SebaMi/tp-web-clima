@@ -17,6 +17,7 @@ public class UsuarioService {
 			if(user == null) {
 				return false;
 			} else if (!user.getPassword().equals(password)) {
+			//if(!passDB.equals(password)) {
 				return false;
 			} else {
 				return true;

@@ -15,8 +15,8 @@
 <title>Preferencias</title>
 </head>
 <body>
-	<form action="preferences" method="post"> 
-		<div class="row">
+	<div class="container">
+        <div class="row">
 			<!-- Navbar aca -->
 			<nav class="navbar navbar-expand-lg navbar-light bg-light"> <a
 				class="navbar-brand" href="#">Aplicacion de clima</a>
@@ -33,7 +33,7 @@
 					<%= usuario.getName() %>	
 				</span>
 				<form class="form-inline my-2 my-lg-0">
-					<button class="btn btn-outline-danger my-2 my-sm-0" type="cancel">Logout</button>
+					<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Logout</button>
 				</form>
 			</div>
 
@@ -42,7 +42,7 @@
 
 		<div class="row">
 			<!-- Contenido de la pagina aqui! -->
-			<form>
+			<form action="preferences" method="post">
 				<div class="form-group">
 					<label for="paisSeleccionado">Pais seleccionado</label> 
 					<input 	type="text" class="form-control" id="paisSeleccionado" value="<%= session.getAttribute("nombrePais") %>" readonly>
@@ -50,14 +50,14 @@
 				
 				<div class="form-group">
 					<label for="exampleFormControlInput1">Ciudad seleccionada</label> 
-					<input 	type="text" class="form-control" id="exampleFormControlInput1" readonly>
+					<input 	type="text" class="form-control" id="exampleFormControlInput1" value="<%= session.getAttribute("Ciudad") %>" readonly>
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlSelect1">Seleccione Ciudad</label> 
 					<% List<Ciudad> ciudades = (List<Ciudad>) session.getAttribute("ciudades");  %>
 					<select class="form-control" id="ciudad" name="ciudad">
 						<% for(Ciudad c : ciudades) { %>
-							<option value="<%= c.getId() %>"> <%= c.getNombre() %> </option>
+							<option value="<%= c.getNombre() %>"> <%= c.getNombre() %> </option>
 						<% } %>
 					</select>
 				
@@ -65,21 +65,21 @@
 				
 				<div class="form-group">
 					<label for="exampleFormControlInput2">Temperatura seleccionada</label> 
-					<input 	type="text" class="form-control" id="exampleFormControlInput2" readonly>
+					<input 	type="text" class="form-control" id="exampleFormControlInput2" value="<%= session.getAttribute("Temperatura") %>" readonly>
 				</div>
 				<div class="form-group">
 					<label for="exampleFormControlSelect2">Seleccione escala de grados</label> 
 					<select class="form-control" id="temperatura" name="temperatura">
 						<option>Celsius</option>
-						<option>Farenheit</option>
+						<option>Fahrenheit</option>
 					</select>
 				</div>
-				
+			<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Guardar</button>	
 			</form>
 
 		</div>
 		
-		<button class="btn btn-outline-danger my-2 my-sm-0" type="submit">Guardar</button>
+		
 
 	</div>
 
@@ -96,6 +96,5 @@
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
 		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
 		crossorigin="anonymous"></script>
-		</form>
 </body>
 </html>
