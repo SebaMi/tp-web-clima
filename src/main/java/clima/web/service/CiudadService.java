@@ -122,4 +122,28 @@ public List<Ciudad> getCiudades() throws DBException{
 	}
 	
 	
+public Pais getPaisByIdCiudad(Integer idCiudad) throws DBException{
+		
+		DBConnection db = new DBConnection();
+		
+		Pais pais = null;
+		
+		try {
+		
+			int idPais = db.getPaisByCiudad(idCiudad);
+			
+			System.out.println(idPais);
+			pais = db.getPais(idPais);
+		
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+			throw new DBException();
+		}
+		
+		return pais;
+	}
+	
+	
 }

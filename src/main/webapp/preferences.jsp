@@ -57,7 +57,7 @@
 					<% List<Ciudad> ciudades = (List<Ciudad>) session.getAttribute("ciudades");  %>
 					<select class="form-control" id="ciudad" name="ciudad">
 						<% for(Ciudad c : ciudades) { %>
-							<option value="<%= c.getNombre() %>"> <%= c.getNombre() %> </option>
+							<option value="<%= c.getId() %>"> <%= c.getNombre() %> </option>
 						<% } %>
 					</select>
 				

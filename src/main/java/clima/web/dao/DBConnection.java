@@ -110,21 +110,24 @@ public class DBConnection {
 		return pref;
 	}
 	
-	public Boolean setPreferences(Preferencias preferences, String email ) throws SQLException {
+	public Boolean setPreferences(Preferencias pref) throws SQLException {
 
 		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "javaweb",
 				"javaweb");) {
 
-			String query = "SELECT * FROM usuarios where email = ?";
+			String query = "INSERT INTO preferencias VALUES (?, ?,?,?) ";
 			PreparedStatement pstmt = connection.prepareStatement(query);
 
-			pstmt.setString(1, email);
+			pstmt.setString(1, pref.getGrado());
+			pstmt.setInt(2, pref.getIdUsuario());
+			pstmt.setInt(3, pref.getIdPais());
+			pstmt.setInt(4, pref.getIdCiudad());
 
-			ResultSet rs = pstmt.executeQuery();
-
-			while (rs.next()) {
-				
-
+			if(pstmt.execute()) {
+				return true;
+			}
+			else {
+				return false;
 			}
 
 		} catch (SQLException ex) {
@@ -140,7 +143,7 @@ public class DBConnection {
 				throw ex;
 			}
 		}
-		return true;
+		return false;
 	}
 
 	public List<Ciudad> getCiudades(Integer idPais) throws SQLException {
@@ -262,6 +265,83 @@ public List<Ciudad> getCiudades() throws SQLException {
 		}				
 
 		return paises;
+	}
+
+	public Integer getPaisByCiudad(Integer idCiudad) throws SQLException {
+		
+		Integer idPais = null;
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "javaweb",
+				"javaweb");) {
+
+			String query = "SELECT pais_id_pais FROM ciudades WHERE id_ciudad = ?";
+			PreparedStatement pstmt = connection.prepareStatement(query);
+
+			pstmt.setInt(1, idCiudad);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			while (rs.next()) {
+				idPais = rs.getInt("pais_id_pais");
+				
+			}
+
+		} catch (SQLException ex) {
+			while (ex != null) {
+				System.out.println("SQLState:  " + ex.getSQLState());
+				System.out.println("Error Code:" + ex.getErrorCode());
+				System.out.println("Message:   " + ex.getMessage());
+				Throwable t = ex.getCause();
+				while (t != null) {
+					System.out.println("Cause:" + t);
+					t = t.getCause();
+				}
+				throw ex;
+			}
+		}	
+		
+		return idPais;
+	}
+
+	public Pais getPais(Integer idPais) throws SQLException {
+		
+		Pais pais = null;
+		
+		try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC", "javaweb",
+				"javaweb");) {
+
+			String query = "SELECT nombre FROM paises WHERE id_pais = ?";
+			PreparedStatement pstmt = connection.prepareStatement(query);
+
+			pstmt.setInt(1, idPais);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			
+			while (rs.next()) {
+				pais.setId(rs.getInt("id_pais")); 
+				pais.setNombre(rs.getString("nombre"));
+				
+			}
+
+		} catch (SQLException ex) {
+			while (ex != null) {
+				System.out.println("SQLState:  " + ex.getSQLState());
+				System.out.println("Error Code:" + ex.getErrorCode());
+				System.out.println("Message:   " + ex.getMessage());
+				Throwable t = ex.getCause();
+				while (t != null) {
+					System.out.println("Cause:" + t);
+					t = t.getCause();
+				}
+				throw ex;
+			}
+		}	
+		
+		return pais;
 	}
 	
 }

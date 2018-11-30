@@ -15,6 +15,7 @@ import clima.web.model.Preferencias;
 import clima.web.model.Usuario;
 import clima.web.service.CiudadService;
 import clima.web.service.PreferenciasService;
+import clima.web.service.UsuarioService;
 
 @WebServlet("/preferences")
 public class PreferencesController extends HttpServlet {
@@ -44,10 +45,6 @@ public class PreferencesController extends HttpServlet {
 			req.getSession().setAttribute("Ciudad", " Seleccione ciudad" );
 		}
 		
-		
-		
-		
-		
 		resp.sendRedirect("preferences.jsp");
 		
 	}
@@ -55,14 +52,38 @@ public class PreferencesController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		Usuario user = (Usuario) req.getSession().getAttribute("usuario");
+		UsuarioService us = new UsuarioService();
+		
+		Usuario user = us.req.getSession().getAttribute("usuario");
 		
 		System.out.println("entro al post");
 		
 		String ciudad =  req.getParameter("ciudad");
 		String temperatura = req.getParameter("temperatura");
 		
-		System.out.println("blabla "+ciudad + " " + temperatura);
+		System.out.println(user.getName() + " " + ciudad + " " + temperatura);
+		
+		PreferenciasService ps = new PreferenciasService();
+		
+		CiudadService cs = new CiudadService();
+		
+		Preferencias pref = new Preferencias();
+		
+		pref.setGrado(temperatura);
+		pref.setIdCiudad(Integer.valueOf(ciudad));
+		pref.setIdUsuario(user.getId());
+		try {
+			pref.setIdPais((cs.getPaisByIdCiudad(pref.getIdCiudad())).getId());
+		} catch (DBException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			ps.persistirPreferencias(pref);
+		} catch (DBException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		req.getSession().setAttribute("Ciudad", ciudad);
 		req.getSession().setAttribute("Temperatura", temperatura);
